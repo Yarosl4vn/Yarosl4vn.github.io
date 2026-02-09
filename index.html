@@ -12,655 +12,233 @@
             box-sizing: border-box;
         }
         
-        :root {
-            --primary: #2c3e50;
-            --secondary: #3498db;
-            --accent: #e74c3c;
-            --success: #2ecc71;
-            --light: #ecf0f1;
-            --dark: #2c3e50;
-            --shadow: 0 4px 6px rgba(0,0,0,0.1);
-            --overlay: rgba(0,0,0,0.7);
-        }
-        
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
             min-height: 100vh;
-            color: var(--dark);
-            overflow-x: hidden;
+            color: #333;
         }
         
-        /* Анимации */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        @keyframes slideUp {
-            from { transform: translateY(30px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        
-        @keyframes slideDown {
-            from { transform: translateY(-30px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-            20%, 40%, 60%, 80% { transform: translateX(5px); }
-        }
-        
-        @keyframes countdown {
-            from { width: 100%; }
-            to { width: 0%; }
-        }
-        
-        .fade-in {
-            animation: fadeIn 0.8s ease-out;
-        }
-        
-        .slide-up {
-            animation: slideUp 0.6s ease-out;
-        }
-        
-        .slide-down {
-            animation: slideDown 0.6s ease-out;
-        }
-        
-        .pulse {
-            animation: pulse 2s infinite;
-        }
-        
-        .shake {
-            animation: shake 0.5s ease-in-out;
-        }
-        
-        /* Меню */
-        .menu {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-        }
-        
-        .menu-btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            box-shadow: var(--shadow);
-            animation: slideDown 0.8s ease-out 0.5s both;
-        }
-        
-        .menu-btn:hover {
-            background: var(--secondary);
-            transform: rotate(180deg) scale(1.1);
-        }
-        
-        .menu-items {
-            position: absolute;
-            top: 60px;
-            right: 0;
-            background: white;
-            border-radius: 10px;
-            box-shadow: var(--shadow);
-            width: 200px;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px) scale(0.9);
-            transition: all 0.3s ease;
-        }
-        
-        .menu-items.active {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0) scale(1);
-        }
-        
-        .menu-item {
-            padding: 15px 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            text-decoration: none;
-            color: var(--dark);
-            border-bottom: 1px solid #eee;
-            transition: all 0.3s ease;
-            transform-origin: right center;
-        }
-        
-        .menu-item:last-child {
-            border-bottom: none;
-        }
-        
-        .menu-item:hover {
-            background: #f8f9fa;
-            color: var(--secondary);
-            padding-left: 25px;
-            transform: translateX(-5px);
-        }
-        
-        /* Модальное окно */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: var(--overlay);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-        }
-        
-        .modal-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        .modal {
-            background: white;
-            border-radius: 15px;
-            padding: 30px;
-            max-width: 500px;
-            width: 90%;
-            transform: scale(0.9) translateY(-20px);
-            transition: all 0.3s ease;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-        }
-        
-        .modal-overlay.active .modal {
-            transform: scale(1) translateY(0);
-        }
-        
-        .modal-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        
-        .modal-icon {
-            width: 50px;
-            height: 50px;
-            background: var(--accent);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            animation: pulse 1.5s infinite;
-        }
-        
-        .modal-title {
-            font-size: 24px;
-            color: var(--primary);
-            flex-grow: 1;
-        }
-        
-        .modal-close {
-            background: none;
-            border: none;
-            font-size: 24px;
-            color: var(--gray);
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-        
-        .modal-close:hover {
-            transform: rotate(90deg);
-        }
-        
-        .modal-body {
-            margin-bottom: 25px;
-        }
-        
-        .warning-text {
-            background: #fff3cd;
-            border: 1px solid #ffeaa7;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 20px;
-            animation: fadeIn 0.5s ease-out;
-        }
-        
-        .warning-text i {
-            color: var(--accent);
-            margin-right: 10px;
-        }
-        
-        .countdown-bar {
-            height: 6px;
-            background: #ddd;
-            border-radius: 3px;
-            margin: 20px 0;
-            overflow: hidden;
-        }
-        
-        .countdown-progress {
-            height: 100%;
-            background: var(--success);
-            width: 100%;
-            animation: countdown 5s linear forwards;
-        }
-        
-        .countdown-text {
-            text-align: center;
-            font-weight: bold;
-            color: var(--primary);
-            margin-bottom: 20px;
-        }
-        
-        .modal-footer {
-            display: flex;
-            gap: 15px;
-            justify-content: flex-end;
-        }
-        
-        .modal-btn {
-            padding: 12px 24px;
-            border-radius: 8px;
-            border: none;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-        
-        .modal-btn.cancel {
-            background: #f8f9fa;
-            color: var(--dark);
-        }
-        
-        .modal-btn.cancel:hover {
-            background: #e9ecef;
-            transform: translateY(-2px);
-        }
-        
-        .modal-btn.download {
-            background: var(--success);
-            color: white;
-        }
-        
-        .modal-btn.download:hover {
-            background: #27ae60;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
-        }
-        
-        /* Основной контент */
         .container {
             max-width: 900px;
             margin: 0 auto;
-            padding: 100px 20px 60px;
+            padding: 40px 20px;
         }
         
         header {
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 50px;
         }
         
         h1 {
             font-size: 42px;
-            color: var(--primary);
-            margin-bottom: 15px;
-            position: relative;
-            display: inline-block;
-            animation: slideUp 0.8s ease-out 0.3s both;
-        }
-        
-        h1::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 3px;
-            background: var(--secondary);
-            animation: slideUp 0.8s ease-out 0.5s both;
+            color: #2c3e50;
+            margin-bottom: 10px;
         }
         
         .subtitle {
-            font-size: 18px;
             color: #7f8c8d;
-            max-width: 600px;
-            margin: 20px auto 0;
-            animation: fadeIn 1s ease-out 0.7s both;
+            font-size: 18px;
         }
         
-        /* Карточки файлов */
-        .files-grid {
+        /* Файлы */
+        .files {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
             gap: 30px;
             margin-bottom: 50px;
         }
         
         .file-card {
             background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: all 0.3s ease;
-            border: 1px solid #e0e0e0;
-            animation: slideUp 0.6s ease-out;
-            animation-fill-mode: both;
-        }
-        
-        .file-card:nth-child(1) {
-            animation-delay: 0.2s;
-        }
-        
-        .file-card:nth-child(2) {
-            animation-delay: 0.4s;
-        }
-        
-        .file-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-        }
-        
-        .file-header {
-            background: var(--primary);
-            color: white;
-            padding: 20px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .file-icon {
-            width: 50px;
-            height: 50px;
-            background: rgba(255,255,255,0.2);
             border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
             transition: transform 0.3s ease;
         }
         
-        .file-card:hover .file-icon {
-            transform: rotate(10deg) scale(1.1);
+        .file-card:hover {
+            transform: translateY(-5px);
         }
         
-        .file-title h2 {
-            font-size: 20px;
-            margin-bottom: 5px;
-        }
-        
-        .file-title .pages {
-            font-size: 14px;
-            opacity: 0.9;
-        }
-        
-        .file-body {
-            padding: 25px;
-        }
-        
-        .file-desc {
-            color: #666;
+        .file-icon {
+            font-size: 48px;
+            color: #3498db;
             margin-bottom: 20px;
-            line-height: 1.5;
         }
         
-        .file-stats {
-            display: flex;
-            justify-content: space-between;
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 8px;
+        .file-icon.pdf {
+            color: #e74c3c;
+        }
+        
+        .file-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .file-size {
+            color: #7f8c8d;
             margin-bottom: 25px;
             font-size: 14px;
         }
         
-        .stat {
-            text-align: center;
-            transition: transform 0.3s ease;
-        }
-        
-        .file-card:hover .stat {
-            transform: translateY(-3px);
-        }
-        
-        .stat-value {
-            font-weight: bold;
-            color: var(--secondary);
-            display: block;
-            font-size: 18px;
-        }
-        
-        .stat-label {
-            color: #7f8c8d;
-            font-size: 13px;
-        }
-        
         .download-btn {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            background: var(--secondary);
+            display: inline-block;
+            padding: 12px 30px;
+            background: #3498db;
             color: white;
-            text-align: center;
             text-decoration: none;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 16px;
-            transition: all 0.3s ease;
+            border-radius: 5px;
+            font-weight: bold;
             border: none;
             cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .download-btn::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 5px;
-            height: 5px;
-            background: rgba(255,255,255,0.5);
-            opacity: 0;
-            border-radius: 100%;
-            transform: scale(1, 1) translate(-50%);
-            transform-origin: 50% 50%;
-        }
-        
-        .download-btn:focus:not(:active)::after {
-            animation: ripple 1s ease-out;
-        }
-        
-        @keyframes ripple {
-            0% {
-                transform: scale(0, 0);
-                opacity: 0.5;
-            }
-            100% {
-                transform: scale(20, 20);
-                opacity: 0;
-            }
+            font-size: 16px;
+            transition: background 0.3s ease;
         }
         
         .download-btn:hover {
-            background: var(--primary);
-            transform: translateY(-2px);
-            box-shadow: 0 7px 14px rgba(52, 152, 219, 0.3);
+            background: #2980b9;
         }
         
-        /* Инструкция */
-        .instructions {
-            background: white;
-            border-radius: 15px;
-            padding: 30px;
-            margin-top: 40px;
-            box-shadow: var(--shadow);
-            border-left: 5px solid var(--accent);
-            animation: slideUp 0.8s ease-out 0.8s both;
-        }
-        
-        .instructions h3 {
-            color: var(--primary);
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .steps {
-            display: grid;
-            gap: 15px;
-            margin-top: 20px;
-        }
-        
-        .step {
-            display: flex;
-            align-items: flex-start;
-            gap: 15px;
-            padding: 15px;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            animation: fadeIn 0.6s ease-out;
-            animation-fill-mode: both;
-        }
-        
-        .step:nth-child(1) { animation-delay: 1s; }
-        .step:nth-child(2) { animation-delay: 1.2s; }
-        .step:nth-child(3) { animation-delay: 1.4s; }
-        
-        .step:hover {
-            background: #f8f9fa;
-            transform: translateX(10px);
-        }
-        
-        .step-number {
-            background: var(--secondary);
-            color: white;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
+        /* Модальное окно */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
-            flex-shrink: 0;
-            transition: transform 0.3s ease;
         }
         
-        .step:hover .step-number {
-            transform: scale(1.2) rotate(10deg);
+        .modal.active {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            animation: slideUp 0.3s ease;
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .warning-icon {
+            font-size: 48px;
+            color: #e74c3c;
+            margin-bottom: 20px;
+        }
+        
+        .modal-title {
+            font-size: 24px;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .warning-text {
+            background: #ffeaa7;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #fdcb6e;
+            text-align: left;
+        }
+        
+        .countdown {
+            font-size: 18px;
+            margin: 20px 0;
+            color: #2c3e50;
+        }
+        
+        .countdown-number {
+            font-weight: bold;
+            color: #e74c3c;
+            font-size: 24px;
+        }
+        
+        .modal-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 25px;
+        }
+        
+        .modal-btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-btn.cancel {
+            background: #ecf0f1;
+            color: #7f8c8d;
+        }
+        
+        .modal-btn.cancel:hover {
+            background: #bdc3c7;
+        }
+        
+        .modal-btn.download {
+            background: #27ae60;
+            color: white;
+        }
+        
+        .modal-btn.download:hover {
+            background: #219653;
+        }
+        
+        .modal-btn.download:disabled {
+            background: #95a5a6;
+            cursor: not-allowed;
         }
         
         /* Футер */
         footer {
             text-align: center;
-            padding: 30px 20px;
-            background: var(--primary);
-            color: white;
-            margin-top: 60px;
-            animation: fadeIn 1s ease-out 1.6s both;
-        }
-        
-        .footer-content {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-        
-        .copyright {
-            font-size: 16px;
-            margin-bottom: 10px;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            color: #7f8c8d;
         }
         
         .year {
-            color: var(--secondary);
             font-weight: bold;
-            animation: pulse 2s infinite 2s;
+            color: #2c3e50;
         }
         
-        .footer-note {
-            font-size: 14px;
-            opacity: 0.8;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        /* Адаптивность */
         @media (max-width: 768px) {
-            .container {
-                padding: 80px 15px 40px;
+            .files {
+                grid-template-columns: 1fr;
             }
             
             h1 {
                 font-size: 32px;
             }
             
-            .files-grid {
-                grid-template-columns: 1fr;
-                gap: 25px;
-            }
-            
-            .menu {
-                top: 15px;
-                right: 15px;
-            }
-            
-            .menu-items {
-                width: 180px;
-            }
-            
-            .modal {
-                width: 95%;
-                padding: 20px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 28px;
-            }
-            
-            .file-header {
-                flex-direction: column;
-                text-align: center;
-                gap: 10px;
-            }
-            
-            .file-stats {
-                flex-direction: column;
-                gap: 10px;
-            }
-            
-            .step {
-                flex-direction: column;
-                text-align: center;
-                align-items: center;
-            }
-            
-            .modal-footer {
+            .modal-buttons {
                 flex-direction: column;
             }
             
@@ -671,262 +249,106 @@
     </style>
 </head>
 <body>
-    <!-- Меню -->
-    <div class="menu">
-        <button class="menu-btn" id="menuBtn">
-            <i class="fas fa-bars"></i>
-        </button>
-        <div class="menu-items" id="menuItems">
-            <a href="#" class="menu-item" id="homeBtn">
-                <i class="fas fa-home"></i> Главная
-            </a>
-            <a href="#files" class="menu-item">
-                <i class="fas fa-file-download"></i> Файлы
-            </a>
-            <a href="#instructions" class="menu-item">
-                <i class="fas fa-question-circle"></i> Инструкция
-            </a>
-            <a href="#footer" class="menu-item">
-                <i class="fas fa-info-circle"></i> Контакты
-            </a>
-        </div>
-    </div>
-    
-    <!-- Модальное окно предупреждения -->
-    <div class="modal-overlay" id="warningModal">
-        <div class="modal">
-            <div class="modal-header">
-                <div class="modal-icon">
-                    <i class="fas fa-exclamation-triangle"></i>
-                </div>
-                <h3 class="modal-title">Внимание!</h3>
-                <button class="modal-close" id="closeModal">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="warning-text">
-                    <i class="fas fa-exclamation-circle"></i>
-                    <strong>Требования к ПО:</strong> Для корректного отображения презентации требуется Microsoft Office 2010 или новее.
-                </div>
-                <p>Презентация использует современные шрифты и эффекты, которые могут не отображаться в старых версиях PowerPoint.</p>
-                <p>Также в файле используется <strong>2-байтный шрифт "Segoe UI"</strong> для поддержки кириллических символов.</p>
-                
-                <div class="countdown-text">
-                    Скачивание начнется через: <span id="countdown">5</span> сек.
-                </div>
-                <div class="countdown-bar">
-                    <div class="countdown-progress"></div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="modal-btn cancel" id="cancelDownload">Отмена</button>
-                <button class="modal-btn download" id="confirmDownload" disabled>
-                    <i class="fas fa-download"></i> Скачать (<span id="countdownBtn">5</span>)
-                </button>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Основной контент -->
     <div class="container">
         <header>
             <h1>Project Y@R</h1>
-            <p class="subtitle">Учебные материалы по истории России. Презентации и документы для скачивания</p>
+            <div class="subtitle">Учебные материалы для скачивания</div>
         </header>
         
-        <main id="files">
-            <div class="files-grid">
+        <main>
+            <div class="files">
                 <!-- Презентация -->
                 <div class="file-card">
-                    <div class="file-header">
-                        <div class="file-icon">
-                            <i class="fas fa-presentation"></i>
-                        </div>
-                        <div class="file-title">
-                            <h2>Города Петра I</h2>
-                            <span class="pages">12 слайдов</span>
-                        </div>
+                    <div class="file-icon">
+                        <i class="fas fa-file-powerpoint"></i>
                     </div>
-                    <div class="file-body">
-                        <p class="file-desc">
-                            Презентация об основанных и развитых Петром I городах, их архитектуре и значении для Российской империи. Включает карты, иллюстрации и исторические справки.
-                        </p>
-                        <div class="file-stats">
-                            <div class="stat">
-                                <span class="stat-value">12</span>
-                                <span class="stat-label">слайдов</span>
-                            </div>
-                            <div class="stat">
-                                <span class="stat-value">24 МБ</span>
-                                <span class="stat-label">размер</span>
-                            </div>
-                            <div class="stat">
-                                <span class="stat-value">PPTX</span>
-                                <span class="stat-label">формат</span>
-                            </div>
-                        </div>
-                        <button class="download-btn" id="downloadPpt">
-                            <i class="fas fa-download"></i> Скачать презентацию
-                        </button>
-                    </div>
+                    <div class="file-name">Города Петра I.pptx</div>
+                    <div class="file-size">12 слайдов • 24 МБ</div>
+                    <button class="download-btn" id="downloadPpt">
+                        <i class="fas fa-download"></i> Скачать презентацию
+                    </button>
                 </div>
                 
-                <!-- PDF документ -->
+                <!-- PDF -->
                 <div class="file-card">
-                    <div class="file-header">
-                        <div class="file-icon">
-                            <i class="fas fa-file-pdf"></i>
-                        </div>
-                        <div class="file-title">
-                            <h2>Города Петра I (детальный анализ)</h2>
-                            <span class="pages">12 страниц</span>
-                        </div>
+                    <div class="file-icon pdf">
+                        <i class="fas fa-file-pdf"></i>
                     </div>
-                    <div class="file-body">
-                        <p class="file-desc">
-                            Подробный анализ городов, основанных Петром Великим: Санкт-Петербург, Таганрог, Петрозаводск и другие. Архитектура, планировка и историческое значение.
-                        </p>
-                        <div class="file-stats">
-                            <div class="stat">
-                                <span class="stat-value">12</span>
-                                <span class="stat-label">страниц</span>
-                            </div>
-                            <div class="stat">
-                                <span class="stat-value">18 МБ</span>
-                                <span class="stat-label">размер</span>
-                            </div>
-                            <div class="stat">
-                                <span class="stat-value">PDF</span>
-                                <span class="stat-label">формат</span>
-                            </div>
-                        </div>
-                        <a href="Города Петра I (детальный анализ).pdf" class="download-btn" download>
-                            <i class="fas fa-download"></i> Скачать документ
-                        </a>
-                    </div>
+                    <div class="file-name">Города Петра I.pdf</div>
+                    <div class="file-size">12 страниц • 18 МБ</div>
+                    <a href="Города Петра I.pdf" class="download-btn" download>
+                        <i class="fas fa-download"></i> Скачать PDF
+                    </a>
                 </div>
             </div>
             
-            <!-- Инструкция -->
-            <div class="instructions" id="instructions">
-                <h3><i class="fas fa-info-circle"></i> Как скачать файлы</h3>
-                <div class="steps">
-                    <div class="step">
-                        <div class="step-number">1</div>
-                        <div class="step-text">Нажмите на кнопку "Скачать" под нужным файлом</div>
-                    </div>
-                    <div class="step">
-                        <div class="step-number">2</div>
-                        <div class="step-text">Для презентации появится предупреждение о требованиях к ПО</div>
-                    </div>
-                    <div class="step">
-                        <div class="step-number">3</div>
-                        <div class="step-text">После 5-секундного ожидания начнется загрузка файла</div>
-                    </div>
-                </div>
-            </div>
+            <footer>
+                <p>© Project Y@R • <span class="year">2026</span></p>
+            </footer>
         </main>
     </div>
     
-    <!-- Футер -->
-    <footer id="footer">
-        <div class="footer-content">
-            <p class="copyright">© Project Y@R. Все права защищены. <span class="year">2026</span></p>
-            <p class="footer-note">Учебные материалы подготовлены для исторического исследования. При использовании ссылка на источник обязательна.</p>
+    <!-- Модальное окно предупреждения -->
+    <div class="modal" id="warningModal">
+        <div class="modal-content">
+            <div class="warning-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <div class="modal-title">Внимание!</div>
+            <p>Перед скачиванием презентации ознакомьтесь с требованиями:</p>
+            
+            <div class="warning-text">
+                <p><strong>Требуется Microsoft Office 2010 или новее!</strong></p>
+                <p>Для корректного отображения презентации необходим PowerPoint 2010 или более поздней версии.</p>
+                <p>В презентации используется <strong>2-байтный шрифт Segoe UI</strong>, который может не отображаться в старых версиях Office.</p>
+            </div>
+            
+            <div class="countdown">
+                Скачивание начнется через: <span class="countdown-number" id="countdown">5</span> секунд
+            </div>
+            
+            <div class="modal-buttons">
+                <button class="modal-btn cancel" id="cancelBtn">Отмена</button>
+                <button class="modal-btn download" id="confirmBtn" disabled>
+                    <span id="btnText">Скачать через 5 сек</span>
+                </button>
+            </div>
         </div>
-    </footer>
+    </div>
     
     <script>
-        // Меню
-        const menuBtn = document.getElementById('menuBtn');
-        const menuItems = document.getElementById('menuItems');
-        
-        menuBtn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            menuItems.classList.toggle('active');
-            
-            const icon = menuBtn.querySelector('i');
-            if (menuItems.classList.contains('active')) {
-                icon.classList.remove('fa-bars');
-                icon.classList.add('fa-times');
-            } else {
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
-            }
-        });
-        
-        // Закрытие меню при клике вне его
-        document.addEventListener('click', function(event) {
-            if (!menuBtn.contains(event.target) && !menuItems.contains(event.target)) {
-                menuItems.classList.remove('active');
-                const icon = menuBtn.querySelector('i');
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
-            }
-        });
-        
-        // Плавная прокрутка для меню
-        document.querySelectorAll('.menu-item').forEach(item => {
-            item.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                }
-                
-                // Закрываем меню после клика (на мобильных)
-                if (window.innerWidth <= 768) {
-                    menuItems.classList.remove('active');
-                    const icon = menuBtn.querySelector('i');
-                    icon.classList.remove('fa-times');
-                    icon.classList.add('fa-bars');
-                }
-            });
-        });
-        
-        // Модальное окно для скачивания презентации
+        // Элементы
         const downloadPptBtn = document.getElementById('downloadPpt');
         const warningModal = document.getElementById('warningModal');
-        const closeModalBtn = document.getElementById('closeModal');
-        const cancelDownloadBtn = document.getElementById('cancelDownload');
-        const confirmDownloadBtn = document.getElementById('confirmDownload');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const confirmBtn = document.getElementById('confirmBtn');
         const countdownDisplay = document.getElementById('countdown');
-        const countdownBtnDisplay = document.getElementById('countdownBtn');
+        const btnText = document.getElementById('btnText');
         
         let countdown = 5;
         let countdownInterval;
         
+        // Открытие модального окна при клике на презентацию
         downloadPptBtn.addEventListener('click', function() {
             warningModal.classList.add('active');
-            document.body.style.overflow = 'hidden';
             
-            // Сброс и запуск таймера
+            // Сброс таймера
             countdown = 5;
             countdownDisplay.textContent = countdown;
-            countdownBtnDisplay.textContent = countdown;
-            confirmDownloadBtn.disabled = true;
-            confirmDownloadBtn.innerHTML = `<i class="fas fa-download"></i> Скачать (${countdown})`;
+            confirmBtn.disabled = true;
+            btnText.textContent = `Скачать через ${countdown} сек`;
             
             // Запуск обратного отсчета
             clearInterval(countdownInterval);
             countdownInterval = setInterval(() => {
                 countdown--;
                 countdownDisplay.textContent = countdown;
-                countdownBtnDisplay.textContent = countdown;
+                btnText.textContent = `Скачать через ${countdown} сек`;
                 
                 if (countdown <= 0) {
                     clearInterval(countdownInterval);
-                    confirmDownloadBtn.disabled = false;
-                    confirmDownloadBtn.innerHTML = '<i class="fas fa-download"></i> Скачать сейчас';
-                    confirmDownloadBtn.classList.add('pulse');
+                    confirmBtn.disabled = false;
+                    btnText.innerHTML = '<i class="fas fa-download"></i> Скачать сейчас';
                 }
             }, 1000);
         });
@@ -934,15 +356,12 @@
         // Закрытие модального окна
         function closeModal() {
             warningModal.classList.remove('active');
-            document.body.style.overflow = 'auto';
             clearInterval(countdownInterval);
-            confirmDownloadBtn.classList.remove('pulse');
         }
         
-        closeModalBtn.addEventListener('click', closeModal);
-        cancelDownloadBtn.addEventListener('click', closeModal);
+        cancelBtn.addEventListener('click', closeModal);
         
-        // Клик вне модального окна для закрытия
+        // Закрытие при клике вне модального окна
         warningModal.addEventListener('click', function(e) {
             if (e.target === warningModal) {
                 closeModal();
@@ -950,76 +369,32 @@
         });
         
         // Подтверждение скачивания
-        confirmDownloadBtn.addEventListener('click', function() {
+        confirmBtn.addEventListener('click', function() {
             if (!this.disabled) {
-                // Эффект перед скачиванием
-                this.classList.add('shake');
-                this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Скачивание...';
+                // Имитация скачивания
+                const link = document.createElement('a');
+                link.href = 'Города Петра I.pptx';
+                link.download = 'Города Петра I.pptx';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                closeModal();
+                
+                // Визуальная обратная связь
+                const originalText = downloadPptBtn.innerHTML;
+                downloadPptBtn.innerHTML = '<i class="fas fa-check"></i> Скачано!';
+                downloadPptBtn.style.background = '#27ae60';
                 
                 setTimeout(() => {
-                    // Имитация скачивания файла
-                    const link = document.createElement('a');
-                    link.href = 'Города Петра I.pptx';
-                    link.download = 'Города Петра I.pptx';
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
-                    
-                    closeModal();
-                    
-                    // Уведомление об успешном скачивании
-                    const originalBtn = downloadPptBtn.innerHTML;
-                    downloadPptBtn.innerHTML = '<i class="fas fa-check"></i> Скачано!';
-                    downloadPptBtn.style.background = 'var(--success)';
-                    
-                    setTimeout(() => {
-                        downloadPptBtn.innerHTML = originalBtn;
-                        downloadPptBtn.style.background = '';
-                    }, 2000);
-                }, 500);
+                    downloadPptBtn.innerHTML = originalText;
+                    downloadPptBtn.style.background = '';
+                }, 2000);
             }
         });
         
-        // Анимация кнопок при наведении
-        document.querySelectorAll('.download-btn').forEach(btn => {
-            btn.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-3px)';
-            });
-            
-            btn.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0)';
-            });
-            
-            // Эффект ripple при клике
-            btn.addEventListener('click', function(e) {
-                e.target.classList.add('focused');
-            });
-        });
-        
-        // Анимация карточек при появлении в viewport
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-        
-        // Наблюдаем за карточками файлов
-        document.querySelectorAll('.file-card').forEach(card => {
-            observer.observe(card);
-        });
-        
-        // Анимация шагов инструкции
-        document.querySelectorAll('.step').forEach((step, index) => {
-            step.style.animationDelay = `${0.8 + (index * 0.2)}s`;
-        });
+        // Скачивание PDF сразу без предупреждения
+        // (ссылка уже настроена в HTML)
     </script>
 </body>
 </html>
